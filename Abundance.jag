@@ -1,0 +1,32 @@
+model {
+
+beta0a ~ dnorm(0,0.01)
+beta1a ~ dnorm(0, 0.01)
+alpha0a ~ dnorm(0, 0.01)
+alpha1a ~ dnorm(0, 0.01)
+alpha2a ~ dnorm(0, 0.01)
+alpha3a ~ dnorm(0,.01)
+alpha4a ~ dnorm(0,.01)
+lambda0a ~ dnorm(0, 0.01)
+lambda1a ~ dnorm(0, 0.01)
+lambda2a ~ dnorm(0, 0.01)
+lambda3a ~ dnorm(0, 0.01)
+
+
+for(i in 1:nSites) {
+  log(psiA[i]) <- beta0a + beta1a*climate[i]
+  NSpeciesA[i,1] ~ dpois(psiA[i])
+for(j in 1:4) {
+  logit(pA[i,j,1]) <- alpha0a + alpha1a*wind[i,j,1]+alpha2a*noise[i,j,1]+alpha3a*date[i,j,1]+alpha4a*time[i,j,1]
+  ySpeciesA[i,j,1] ~ dbin(pA[i,j,1], NSpeciesA[i,1])
+  }
+for(t in 2:T){
+    log(lambdaA[i,t-1]) <-lambda0a + lambda1a*climate[i] + lambda2a*treatment[i,1,t] + lambda3a*NSpeciesA[i,t-1]
+    NSpeciesA[i,t] ~ dpois(lambdaA[i,t-1]*NSpeciesA[i,t-1])
+for(j in 1:nIntervals[t]) {
+    logit(pA[i,j,t]) <- alpha0a + alpha1a*wind[i,j,t]+alpha2a*noise[i,j,t]+alpha3a*date[i,j,t]+alpha4a*time[i,j,t]
+    ySpeciesA[i,j,t] ~ dbin(pA[i,j,t], NSpeciesA[i,t])
+      }
+    }
+  }
+}
