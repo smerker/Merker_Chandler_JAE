@@ -1,5 +1,6 @@
 # Merker_Chandler_JAE
 Data and code for a simple N-mixture model in JAGS
+Merker, S.A and Chandler, R.B. In Press. An experimental test of the Allee effects range limitation hypothesis. Journal of Animal Ecology.
 
 JAE-data.gzip contains the data required to run the model including:
 1) scaled and center covariates of detection
