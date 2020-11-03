@@ -1,0 +1,53 @@
+model {
+
+beta0 ~ dnorm(0, 1)      ## Ensure that Pr(N>10) is very small at intercept
+beta1 ~ dnorm(0, 0.1)
+alpha0 ~ dnorm(0, 0.5)   ## Implies approximate p~U(0,1) at intercept
+alpha1 ~ dnorm(0, 0.1)
+alpha2 ~ dnorm(0, 0.1)
+alpha3 ~ dnorm(0, 0.1)
+alpha4 ~ dnorm(0, 0.1)
+lambda0 ~ dnorm(0, 1)   ## Avoids high prior probs on extreme growth rates
+lambda1 ~ dnorm(0, 0.1)
+lambda2 ~ dnorm(0, 0.1)
+lambda3 ~ dnorm(0, 0.1)
+
+for(i in 1:nSites) {
+  log(psi[i,1]) <- beta0 + beta1*climate[i]  ## psi is the expected value of N
+  D[i,1] <- psi[i,1] / plotArea              ## D is the expected value of density
+  DS[i,1] <- (D[i,1]-0.15)/0.25              ## Density (roughly) standardized
+  N[i,1] ~ dpois(psi[i,1])
+  ld.N.site.year[i,1] <- logdensity.pois(N[i,1], psi[i,1])
+  for(j in 1:4) {
+    logit(p[i,j,1]) <- alpha0 + alpha1*wind[i,j,1] + alpha2*noise[i,j,1] +
+      alpha3*date[i,j,1] + alpha4*time[i,j,1]
+    y[i,j,1] ~ dbin(p[i,j,1], N[i,1])
+    ld.y.site.year.visit[i,j,1] <- logdensity.bin(y[i,j,1], p[i,j,1], N[i,1])
+    ld.yN.site.year.visit[i,j,1] <- ld.y.site.year.visit[i,j,1]+ld.N.site.year[i,1]
+    }
+##  ld.yN.site.year[i,1] <- ld.N.site.year[i,1]+sum(ld.y.site.year.visit[i,,1])
+  for(t in 2:T){
+    log(lambda[i,t-1]) <- lambda0 + lambda1*climate[i] +
+      lambda2*treatment[i,1,t] + lambda3*DS[i,t-1] 
+    psi[i,t] <- psi[i,t-1]*lambda[i,t-1]  
+    D[i,t] <- psi[i,t] / plotArea
+    DS[i,t] <- (D[i,t]-0.15)/0.25              ## Density (roughly) standardized
+    N[i,t] ~ dpois(psi[i,t])
+    ld.N.site.year[i,t] <- logdensity.pois(N[i,t], psi[i,t])
+    for(j in 1:nIntervals[t]) {
+      logit(p[i,j,t]) <- alpha0 + alpha1*wind[i,j,t] +
+        alpha2*noise[i,j,t] + alpha3*date[i,j,t] + alpha4*time[i,j,t]
+      y[i,j,t] ~ dbin(p[i,j,t], N[i,t])
+      ld.y.site.year.visit[i,j,t] <- logdensity.bin(y[i,j,t], p[i,j,t], N[i,t])
+      ld.yN.site.year.visit[i,j,t] <- ld.y.site.year.visit[i,j,t]+ld.N.site.year[i,t]
+     }
+##    ld.yN.site.year[i,t] <- ld.N.site.year[i,t]+sum(ld.y.site.year.visit[i,,t])
+    }
+##  ld.yN.site[i] <- sum(ld.yN.site.year[i,])
+  }
+
+for(t in 1:T) {
+  Ntotal[t] <- sum(N[,t])
+  }
+
+}
