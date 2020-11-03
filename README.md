@@ -11,12 +11,12 @@ The file [JAE-data.gzip] contains the data required to run the model, including:
 
 From R, you can load the data with the command `load("JAE-data.gzip")`.
 
-The JAGS code is in the file [Abundance_EN_clim-trt-D.JAG](Abundance_EN_clim-trt-D.JAG)
+The JAGS code is in the file [Abundance_EN_clim-trt-D.jag](Abundance_EN_clim-trt-D.jag)
 
 [Merker_Chandler_Appendices.Rmd](Merker_Chandler_Appendices.Rmd) is an Rmarkdown file for the appendices of the article
 
 
 ## DOI
 
-[![DOI]https://zenodo.org/badge/DOI/10.5281/zenodo.4238700.svg](https://zenodo.org/badge/latestdoi/4238700)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4238700.svg)](https://zenodo.org/badge/latestdoi/4238700)
 
