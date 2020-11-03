@@ -9,4 +9,4 @@ JAE-data.gzip contains the data required to run the model including:
 
 The model itself is described in the .jAG file "Abundance_EN_clim-trt-D.JAG"
 
-An appendix of the article is included.
+Merker_Chandler_Appendices is an Rmarkdown file for the appendices of the article
