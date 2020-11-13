@@ -1,19 +1,19 @@
 # Merker_Chandler_JAE
 
-Data and code for a N-mixture model in JAGS used in paper:
+Data and code for the paper:
 
 Merker, S.A and Chandler, R.B. In Press. An experimental test of the Allee effects range limitation hypothesis. Journal of Animal Ecology.
 
-The file [JAE-data.gzip](JAE-data.gzip) contains the data required to run the model, including:
+The file [JAE-data.gzip](JAE-data.gzip) contains the data required to run the N-mixture models, including:
 1) scaled and center covariates of detection
-2) a 3 dimensional array containing counts of Canada warbler (*Cardellina canadensis*) at 71 point count locations over 4 years
-3) A climate PCA derived from PRISM data. 
+2) 3-dimensional array containing counts of Canada warbler (*Cardellina canadensis*) at 71 point count locations over 4 years
+3) principal component representing climate gradient derived from PRISM data. 
 
-From R, you can load the data with the command `load("JAE-data.gzip")`.
+From [R](https://www.r-project.org/), you can load the data with the command `load("JAE-data.gzip")`.
 
-The JAGS code is in the file [Abundance_EN_clim-trt-D.jag](Abundance_EN_clim-trt-D.jag)
+The [JAGS](https://sourceforge.net/projects/mcmc-jags/files/) code is in the file [Abundance_EN_clim-trt-D.jag](Abundance_EN_clim-trt-D.jag). This is just one of models included in the paper.
 
-[Merker_Chandler_Appendices.Rmd](Merker_Chandler_Appendices.Rmd) is an Rmarkdown file for the appendices of the article
+[Merker_Chandler_Appendices.Rmd](Merker_Chandler_Appendices.Rmd) is an Rmarkdown file for the appendices of the article.
 
 
 ## DOI
