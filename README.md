@@ -2,7 +2,7 @@
 
 Data and code for the paper:
 
-Merker, S.A and Chandler, R.B. In Press. An experimental test of the Allee effects range limitation hypothesis. Journal of Animal Ecology.
+Merker, S.A and Chandler, R.B. 2021. An experimental test of the Allee effects range limitation hypothesis. Journal of Animal Ecology.
 
 The file [JAE-data.gzip](JAE-data.gzip) contains the data required to run the N-mixture models, including:
 1) scaled and center covariates of detection
